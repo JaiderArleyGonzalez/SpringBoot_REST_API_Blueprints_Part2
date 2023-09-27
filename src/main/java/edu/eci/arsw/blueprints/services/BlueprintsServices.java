@@ -36,12 +36,8 @@ public class BlueprintsServices {
     public BlueprintsServices() {
     }
     
-    public void addNewBlueprint(Blueprint bp) throws BlueprintNotFoundException{
-        try {
-            bpp.saveBlueprint(bp);
-        } catch (BlueprintPersistenceException e) {
-            e.printStackTrace();
-        }
+    public void addNewBlueprint(Blueprint bp) throws BlueprintPersistenceException{
+        bpp.saveBlueprint(bp);
     }
     
     public Set<Blueprint> getAllBlueprints() throws BlueprintNotFoundException{
@@ -79,5 +75,8 @@ public class BlueprintsServices {
         } catch (BlueprintNotFoundException e) {
             return null;
         }   
+    }
+    public void setBluePrint(Blueprint bluePrint, String author, String name) throws BlueprintNotFoundException {
+        bpp.setBluePrint(bluePrint, author, name);
     }
 }

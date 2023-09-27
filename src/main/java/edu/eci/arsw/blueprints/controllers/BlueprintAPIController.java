@@ -12,11 +12,16 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import edu.eci.arsw.blueprints.model.Blueprint;
 import edu.eci.arsw.blueprints.persistence.BlueprintNotFoundException;
+import edu.eci.arsw.blueprints.persistence.BlueprintPersistenceException;
 import edu.eci.arsw.blueprints.services.BlueprintsServices;
 
 import java.util.logging.Level;
@@ -59,6 +64,26 @@ public class BlueprintAPIController {
         } catch (BlueprintNotFoundException e) {
             Logger.getLogger(BlueprintAPIController.class.getName()).log(Level.SEVERE, null, e);
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
+    }
+    @RequestMapping(method = RequestMethod.POST)
+    public ResponseEntity<?> manejadorPostRecursoBlueprints(@RequestBody Blueprint bluePrint) {
+        try {
+            bps.addNewBlueprint(bluePrint);
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        } catch (BlueprintPersistenceException e) {
+            Logger.getLogger(BlueprintAPIController.class.getName()).log(Level.SEVERE, null, e);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.FORBIDDEN);
+        }
+    }
+    @PutMapping(path="/{author}/{name}")
+    public ResponseEntity<?> manejadorPutRecursoBlueprints(@RequestBody Blueprint bluePrint, @PathVariable("author") String author, @PathVariable("name") String name) {
+        try {
+            bps.setBluePrint(bluePrint, author, name);
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        } catch (BlueprintNotFoundException e) {
+            Logger.getLogger(BlueprintAPIController.class.getName()).log(Level.SEVERE, null, e);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.FORBIDDEN);
         }
     }
 }

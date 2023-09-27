@@ -79,5 +79,15 @@ public class InMemoryBlueprintPersistence implements BlueprintsPersistence{
         }
         return result;
     }
+    @Override
+    public void setBluePrint(Blueprint bluePrint, String author, String name) throws BlueprintNotFoundException{
+        Blueprint currentBlue = getBlueprint(author, name);
+        if (currentBlue == null) {
+            throw new BlueprintNotFoundException(BlueprintNotFoundException.NONEXISTENT);
+        } else {
+            currentBlue.setPoints(bluePrint.getPoints());
+        }
+    }
+
 
 }

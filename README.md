@@ -101,12 +101,22 @@ Del anterior diagrama de componentes (de alto nivel), se desprendió el siguient
 	
 
 	Nota: puede basarse en el formato jSON mostrado en el navegador al consultar una orden con el método GET.
+	Se puso:
+	```	
+	curl -i -X POST -H "Content-Type: application/json" -H "Accept: application/json" http://localhost:8080/blueprints -d "{\"author\": \"jaider\",\"points\": [{\"x\": 550,\"y\": 440},{\"x\": 300,\"y\": 320}],\"name\": \"BloqueH\"}"
 
+	```	
+	![](img/II2.png)
 
 3. Teniendo en cuenta el autor y numbre del plano registrado, verifique que el mismo se pueda obtener mediante una petición GET al recurso '/blueprints/{author}/{bpname}' correspondiente.
-
+	![](img/II3.png)
 4. Agregue soporte al verbo PUT para los recursos de la forma '/blueprints/{author}/{bpname}', de manera que sea posible actualizar un plano determinado.
+	Se ingresó:
+	```	
+	curl -i -X PUT -HContent-Type:application/json -HAccept:application/json http://localhost:8080/blueprints/juan/casa -d "{\"author\": \"juan\",\"points\": [{\"x\": 500,\"y\": 500},{\"x\": 600,\"y\": 600}],\"name\": \"casa\"}"
 
+	```	
+	![](img/II4.png)
 
 ### Parte III
 
