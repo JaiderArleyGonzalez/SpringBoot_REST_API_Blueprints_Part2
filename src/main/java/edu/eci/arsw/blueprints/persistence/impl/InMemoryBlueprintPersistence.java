@@ -33,14 +33,15 @@ public class InMemoryBlueprintPersistence implements BlueprintsPersistence{
         //load stub data
         
         Point[] pts1=new Point[]{new Point(140, 140),new Point(115, 115)};
-        Blueprint bp1=new Blueprint("Jaider Gonzalez", "Casa Vacacional",pts1);
+        Blueprint bp1=new Blueprint("juan", "casa",pts1);
         blueprints.put(new Tuple<>(bp1.getAuthor(),bp1.getName()), bp1);
         Point[] pts2=new Point[]{new Point(140, 140),new Point(115, 115)};
-        Blueprint bp2=new Blueprint("Jaider Gonzalez", "Casa de invierno",pts2);
+        Blueprint bp2=new Blueprint("juan", "Casa de invierno",pts2);
         blueprints.put(new Tuple<>(bp2.getAuthor(),bp2.getName()), bp2);
         Point[] pts3=new Point[]{new Point(140, 140),new Point(115, 115)};
         Blueprint bp3=new Blueprint("Miguel Barrera", "Bloque F ",pts3);
         blueprints.put(new Tuple<>(bp3.getAuthor(),bp3.getName()), bp3);
+        
     }    
     
     @Override
@@ -62,7 +63,7 @@ public class InMemoryBlueprintPersistence implements BlueprintsPersistence{
     public Set<Blueprint> getBlueprintsByAuthor(String author) throws BlueprintNotFoundException {
         Set<Blueprint> result = new HashSet<>();
         for (Blueprint value : blueprints.values()) { 
-            if (value.getAuthor() == author) {
+            if (value.getAuthor().equals(author)) {
                 result.add(value);
             }
         }
