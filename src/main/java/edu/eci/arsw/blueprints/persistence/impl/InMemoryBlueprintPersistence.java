@@ -25,7 +25,7 @@ import org.springframework.stereotype.Component;
  * @author hcadavid
  */
 @Component
-public class InMemoryBlueprintPersistence implements BlueprintsPersistence{
+public class  InMemoryBlueprintPersistence implements BlueprintsPersistence{
 
     private final Map<Tuple<String,String>,Blueprint> blueprints=new HashMap<>();
 
@@ -45,7 +45,7 @@ public class InMemoryBlueprintPersistence implements BlueprintsPersistence{
     }    
     
     @Override
-    public void saveBlueprint(Blueprint bp) throws BlueprintPersistenceException {
+    public synchronized void saveBlueprint(Blueprint bp) throws BlueprintPersistenceException {
         if (blueprints.containsKey(new Tuple<>(bp.getAuthor(),bp.getName()))){
             throw new BlueprintPersistenceException("The given blueprint already exists: "+bp);
         }
@@ -80,7 +80,7 @@ public class InMemoryBlueprintPersistence implements BlueprintsPersistence{
         return result;
     }
     @Override
-    public void setBluePrint(Blueprint bluePrint, String author, String name) throws BlueprintNotFoundException{
+    public synchronized void setBluePrint(Blueprint bluePrint, String author, String name) throws BlueprintNotFoundException{
         Blueprint currentBlue = getBlueprint(author, name);
         if (currentBlue == null) {
             throw new BlueprintNotFoundException(BlueprintNotFoundException.NONEXISTENT);
